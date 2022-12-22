@@ -1,33 +1,27 @@
 import React from 'react';
 import BoilingVerdict from './BollingVerdict';
-
+import TemperatureInput  from './TemperatureInput';
+import {convert, toCelsius, toFahrenheit} from './lib/ConverterTo';
 
 // parent component
 export default class Calculator extends React.Component {
 
-    // declare a state variable name temperature.
-    // syntax of state in class components
-    state = {
-        temperature: '',
-    }
+state = { temperature : '', scale : 'c',}
 
-    onTemperatureChange = (e) => {
-        this.setState({
-            temperature: e.target.value
-        });
-    }
+handleChange = (e, scale) => {
+    this.setState({ temperature: e.target.value,
+        scale,
+    });
+};
 
     render() {
-        // state destructor 
-        const { temperature } = this.state;
-
+        const { temperature, scale } = this.state;
+        const celsius = scale === 'f' ? convert(temperature, toCelsius ): temperature;
+        const fahrenheit = scale === 'c' ? convert(temperature, toFahrenheit): temperature;
         return(
             <div>
-                <fieldset>
-                    <legend>Enter Temperature in Celsius: </legend>
-                    <input type="text" value={temperature} onChange={this.onTemperatureChange} />
-                </fieldset>
-
+                <TemperatureInput scale ='c' temperature={celsius} onTemperatureChange={this.handleChange}/>
+                <TemperatureInput scale ='f' temperature={fahrenheit} onTemperatureChange={this.handleChange}/>
                 <BoilingVerdict celsius={parseFloat(temperature)} />
             </div>
         )

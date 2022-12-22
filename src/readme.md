@@ -12,3 +12,8 @@
 ## Then create a component named 'BoilingVerdict'
 - Add conditional render.
 
+## Then add the project in the github repository for make live .
+
+## Then create a component named 'TemperatureInput'
+- now we want to take input multiple times and values from user.
+
